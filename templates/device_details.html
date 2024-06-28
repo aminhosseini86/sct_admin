@@ -1,0 +1,117 @@
+<h5>اسکوتر {{ imei }}</h5>
+{% if device is not none %}
+    <div class="row">
+        <div class="col-12">
+            <table id="table" class="table table-hover table-striped table-borderless">
+                <tr>
+                    <td>وضعیت</td>
+                    <td class="dir-left text-left">{{ 'فعال' if device['state'] == '0' else 'قفل' }}</td>
+                </tr>
+                <tr>
+                    <td>در حال شارژ</td>
+                    <td class="dir-left text-left">{{ 'بله' if device['charging'] == '1' else 'خیر' }}</td>
+                </tr>
+                <tr>
+                    <td>ولتاژ</td>
+                    <td class="dir-left text-left">{{ device['voltage'] }}</td>
+                </tr>
+                <tr>
+                    <td>میزان شارژ</td>
+                    <td class="dir-left text-left">{{ device['power'] }}</td>
+                </tr>
+                <tr>
+                    <td>سیگنال</td>
+                    <td class="dir-left text-left">{{ device['signal'] }}</td>
+                </tr>
+                <tr>
+                    <td>مکان</td>
+                    <td class="dir-left text-left">
+                        <a target="_blank" href="https://maps.google.com/maps?q={{ device['lat'] }},{{ device['long'] }}">محل
+                            استقرار</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>آخرین زمان ارسال داده</td>
+                    <td class="dir-left text-left">{{ device['timestamp'] }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <form action="{{ url_for('device_action') }}" method="post" onsubmit="return device_action(this)">
+                <input type="hidden" name="qr" value="{{ qr }}">
+                <input type="hidden" name="command" value="R0">
+                <input type="hidden" name="0" value="0">
+                <input type="hidden" name="2" value="20">
+                <input class="btn btn-primary btn-block" type="submit" value="فعال سازی">
+            </form>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <form action="{{ url_for('device_action') }}" method="post" onsubmit="return device_action(this)">
+                <input type="hidden" name="qr" value="{{ qr }}">
+                <input type="hidden" name="command" value="R0">
+                <input type="hidden" name="0" value="1">
+                <input type="hidden" name="2" value="20">
+                <input class="btn btn-primary btn-block" type="submit" value="غیر فعال سازی">
+            </form>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <button class="btn btn-primary btn-block" onclick="$('#s5_form').slideToggle()">S5</button>
+            <div style="display: none" id="s5_form" class="border-top border-secondary p-2">
+                <form action="{{ url_for('device_action') }}" method="post" onsubmit="return device_action(this)">
+                    <input type="hidden" name="imei" value="{{ imei }}">
+                    <input type="hidden" name="command" value="S5">
+                    <input class="form-control mb-1" placeholder="پارامتر 0" name="0" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 1" name="1" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 2" name="2" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 3" name="3" required>
+                    <input type="submit" class="btn btn-primary btn-block btn-round" value="ارسال">
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <button class="btn btn-primary btn-block" onclick="$('#s7_form').slideToggle()">S7</button>
+            <div style="display: none" id="s7_form" class="border-top border-secondary p-2">
+                <form action="{{ url_for('device_action') }}" method="post" onsubmit="return device_action(this)">
+                    <input type="hidden" name="imei" value="{{ imei }}">
+                    <input type="hidden" name="command" value="S7">
+                    <input class="form-control mb-1" placeholder="پارامتر 0" name="0" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 1" name="1" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 2" name="2" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 3" name="3" required>
+                    <input type="submit" class="btn btn-primary btn-block btn-round" value="ارسال">
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <button class="btn btn-primary btn-block" onclick="$('#s4_form').slideToggle()">S4</button>
+            <div style="display: none" id="s4_form" class="border-top border-secondary p-2">
+                <form action="{{ url_for('device_action') }}" method="post" onsubmit="return device_action(this)">
+                    <input type="hidden" name="imei" value="{{ imei }}">
+                    <input type="hidden" name="command" value="S4">
+                    <input class="form-control mb-1" placeholder="پارامتر 0" name="0" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 1" name="1" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 2" name="2" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 3" name="3" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 4" name="4" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 5" name="5" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 6" name="6" required>
+                    <input class="form-control mb-1" placeholder="پارامتر 7" name="7" required>
+                    <input type="submit" class="btn btn-primary btn-block btn-round" value="ارسال">
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <button class="btn btn-primary btn-block" onclick="$('#v0_form').slideToggle()">V0</button>
+            <div style="display: none" id="v0_form" class="border-top border-secondary p-2">
+                <form action="{{ url_for('device_action') }}" method="post" onsubmit="return device_action(this)">
+                    <input type="hidden" name="imei" value="{{ imei }}">
+                    <input type="hidden" name="command" value="V0">
+                    <input class="form-control mb-1" placeholder="پارامتر 0" name="0" required>
+                    <input type="submit" class="btn btn-primary btn-block btn-round" value="ارسال">
+                </form>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="text-center text-danger mt-5">اطلاعاتی موجود نیست</div>
+{% endif %}

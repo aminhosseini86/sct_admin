@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="icon" href="{{ url_for('static', filename='images/logo2.png') }}" type="image/x-icon"> <!-- Favicon-->
+        <title>سامانه مدیریت نترافیک - {% block title %}{% endblock %}</title>
+        <meta name="description" content="Oero Laravel">
+        <meta name="author" content="Oero Laravel">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-material-datetimepicker.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/morris.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-jvectormap-2.0.3.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/datatable/dataTables.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/datatable/buttons.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/rtl.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/color_skins.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+        <script src="{{ url_for('static', filename='js/libscripts.bundle.js') }}"></script>
+    {% endblock %}
+</head>
+<body class="theme-purple rtl">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+        <div class="m-t-30">
+            <img class="zmdi-hc-spin" src="{{ url_for('static', filename='images/logo2.png') }}" width="48" height="48" alt="نترافیک">
+        </div>
+        <p>در حال بارگزاری...</p>
+    </div>
+</div>
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+<nav class="navbar p-l-5 p-r-5">
+    <ul class="nav navbar-nav navbar-left">
+        <li>
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="https://thememakker.com/templates/oreo/hospital/laravel/public/dashboard/index"><img src="{{ url_for('static', filename='images/logo3.png') }}" height="30px" alt="نترافیک"></a>
+            </div>
+        </li>
+        <li class="float-right">
+            <a href="https://thememakker.com/templates/oreo/hospital/laravel/public/authentication/login" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a>
+        </li>
+    </ul>
+</nav>        <!-- Left Sidebar -->
+<aside id="leftsidebar" class="sidebar">
+    <div class="tab-content">
+        <div class="tab-pane stretchRight active" id="dashboard">
+            <div class="menu">
+                <ul class="list">
+                    <li>
+                        <div class="user-info">
+                            <div class="image">
+                                <a href="https://thememakker.com/templates/oreo/hospital/laravel/public/doctor/profile"><img src="{{ url_for('static', filename='images/profile_av.png') }}" alt="User"></a>
+                            </div>
+                            <div class="detail">
+                                <h4>سید امین حسینی</h4>
+                                <small>مدیر سیستم</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="header">پیشخوان</li>
+                    {% for li in menu['items'] %}
+                        <li class="{{ 'active' if loop.index == g.active_menu else '' }}">
+                            <a href="{{ li.link }}"><i class='zmdi {{ li.icon }}'></i><span>{{ li.title }}</span></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</aside>
+<section class="content home">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <h2>پیشخوان<small class="text-muted">خوش آمدید</small></h2>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-12 mt-2 mt-md-0 text-right">
+                <ul class="breadcrumb float-md-left">
+                    <li class="breadcrumb-item">
+                        <a href="#"><i class="zmdi zmdi-home"></i> پیشخوان</a>
+                    </li>
+                    <li class="breadcrumb-item active">{{ self.title() }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% block content %}{% endblock %}
+    </div>
+</section>
+<script src="{{ url_for('static', filename='js/vendorscripts.bundle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/moment.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap-material-datetimepicker.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mainscripts.bundle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/morrisscripts.bundle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jvectormap.bundle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/knob.bundle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/datatable/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/datatable/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/datatable/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/datatable/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/datatable/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/datatable/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootbox.all.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/notify.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>

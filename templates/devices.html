@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+
+{% block title %}مدیریت اسکوتر{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script>
+        function get_device_details(url) {
+            $("#device-details").load(url);
+        }
+
+        function device_action(form) {
+            let data = {"data":{}}
+            // JSON.stringify({"imei": imei, "qr": qr, "command": command, "data": data})
+            form = $(form);
+            let form_data = form.serializeArray();
+            for (let i = 0; i < form_data.length; i++) {
+                if (!isNaN(form_data[i]['name'])) {
+                    data['data'][form_data[i]['name']] = form_data[i]['value'];
+                } else {
+                    data[form_data[i]['name']] = form_data[i]['value'];
+                }
+            }
+
+            console.log(data)
+            console.log("A")
+            console.log(JSON.stringify(data))
+            console.log("B")
+
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                success: function (result) {
+                    console.log(result)
+                }
+            });
+            return false;
+        }
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="row clearfix">
+        <div class="col-lg-4 col-12">
+            <div class="card h-md-100">
+                <div class="header">
+                    <h2>لیست <strong>اسکوتر</strong></h2>
+                </div>
+                <div class="body">
+                    <table id="table" class="table table-hover table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>imei</th>
+                            <th>جزئیات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for device in devices %}
+                            <tr>
+                                <td class="text-center">{{ device['imei'] }}</td>
+                                <td class="text-center">
+                                    <button class="btn btn-info btn-sm"
+                                            onclick="get_device_details('{{ url_for('get_device_details', qr=device['id'], imei=device['imei']) }}')">
+                                        <i class="zmdi zmdi-info-outline"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-12">
+            <div class="card h-md-100" style="min-height: 300px">
+                <div class="header">
+                    <h2>اطلاعات <strong>اسکوتر</strong></h2>
+                </div>
+                <div class="body" id="device-details">
+                    <div style="position: absolute; transform: translate(-50%,-50%); left: 50%; top: 50%">
+                        اسکوتر مورد نظر را انتخاب کنید
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    //{extend: 'excel', className: 'btn btn-raised btn-primary btn-round waves-effect font-weight-bold'}
+                ],
+                "language": {
+                    "url": "{{ url_for('static', filename='js/datatable_farsi.json') }}"
+                },
+                "order": [[0, 'asc']]
+            });
+        });
+    </script>
+{% endblock %}

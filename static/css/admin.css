@@ -1,0 +1,44 @@
+.dir-right {
+    text-align: right;
+    direction: rtl;
+}
+
+.dir-left {
+    text-align: left;
+    direction: ltr;
+}
+
+.en {
+    font-family: tahoma, sans-serif;
+}
+
+.loading_box {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    display: none;
+}
+
+.loading_box > .body {
+    position: absolute;
+    top: 0;
+    left: 45%;
+}
+
+.dataTables_wrapper.form-inline {
+    display: block;
+}
+
+#table_filter label {
+    float: right;
+}
+
+table th {
+    text-align: center !important;
+}
+
+table.new_timeline tr > td:nth-child(2) {
+    text-align: center;
+}
